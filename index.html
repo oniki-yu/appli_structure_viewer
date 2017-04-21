@@ -11,7 +11,8 @@
             <input type="text" id="comment-input" placeholder="コメント" />
             <input type="submit" value="投稿" />
         </form>
+        <div id="root"></div>
         <ul id="comments"></ul>
-        <script src="src/renderer/renderer.js"></script>
+        <script>(require("./.tmp/renderer/app.js"))</script>
     </body>
 </html>
