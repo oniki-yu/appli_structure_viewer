@@ -2,7 +2,6 @@ import { app, BrowserWindow } from 'electron';
 const { ipcMain } = require("electron");
 import axios from 'axios';
 
-
 import createWindow from './createWindow';
 
 function reply (event, data) {
@@ -16,7 +15,6 @@ ipcMain.on("asynchronous-message", (event, arg) => {
         headers: {"User-Agent": "Yappli/"+ arg +".20170418 (iPhone)"}
     }).then(response => reply(event, response.data.feed.entry));
 });
-
 
 //２回目以降
 ipcMain.on("asynchronous-next-data", (event, arg) => {

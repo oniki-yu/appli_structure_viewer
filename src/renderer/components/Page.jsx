@@ -4,11 +4,11 @@ const { ipcRenderer } = require("electron");
 import { addList } from '../action';
 import { Link } from "react-router";
 
-
 import { Provider } from 'react-redux';
 
 class Page extends React.Component {
     render() {
+        console.log(this.props.page);
         const data = this.props.page.toJS().datas;
         const { addList } = this.props;
         return (

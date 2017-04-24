@@ -11,7 +11,7 @@ import { Router, Route, hashHistory, Link } from "react-router";
 import { addList } from './action';
 import configureStore from './configureStore'
 import Page from './components/Page';
-import PageId from './components/PageId';
+import ContainerPageId from './components/PageId';
 import Login from './Login';
 
 const store = configureStore();
@@ -21,7 +21,7 @@ const appRouting = (
     <Router history={hashHistory}>
         <Route path="/">
             <Route path="pages" component={Page}>
-                <Route path=":pageId" component={PageId} />
+                <Route path=":pageId" component={ContainerPageId} />
             </Route>
             <Route path="login" component={Login} />
         </Route>
