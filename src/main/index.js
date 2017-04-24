@@ -26,9 +26,6 @@ ipcMain.on("asynchronous-next-data", (event, arg) => {
     }).then(response => reply(event, response.data.feed.entry));
 });
 
-
-
-
 app.on('ready', () => {
     createWindow();
 });

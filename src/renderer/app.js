@@ -2,22 +2,40 @@ require('es6-promise').polyfill();
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
-
 import ReactDom from 'react-dom';
 import React, { Component, PropTypes } from 'react';
 import 'babel-polyfill';
 const { ipcRenderer } = require("electron");
-import { addList } from './action';
+import { Router, Route, hashHistory, Link } from "react-router";
 
+import { addList } from './action';
 import configureStore from './configureStore'
 import Page from './components/Page';
-// import Page from './renderer';
+import PageId from './components/PageId';
+import Login from './Login';
 
 const store = configureStore();
 
+//Routingの定義
+const appRouting = (
+    <Router history={hashHistory}>
+        <Route path="/">
+            <Route path="pages" component={Page}>
+                <Route path=":pageId" component={PageId} />
+            </Route>
+            <Route path="login" component={Login} />
+        </Route>
+    </Router>
+);
+
+//Routingの初期化
+if (!location.hash.length) {
+    location.hash = "#/pages";
+}
+
 ReactDom.render((
     <Provider store={store}>
-        <Page />
+        {appRouting}
     </Provider>
 ), document.getElementById('root'));
 

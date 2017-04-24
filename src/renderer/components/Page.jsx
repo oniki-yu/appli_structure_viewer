@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 const { ipcRenderer } = require("electron");
 import { addList } from '../action';
-// import { List } from './List';
+import { Link } from "react-router";
+
 
 import { Provider } from 'react-redux';
 
@@ -15,7 +16,10 @@ class Page extends React.Component {
                 <button onClick={() => addList()}>
                     text
                 </button>
+                <Link to="pages/1">Page1</Link>
+                <Link to="login">Login</Link>
                 <List pages={data} />
+                {this.props.children}
             </div>
         );
     }
