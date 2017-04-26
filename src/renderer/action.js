@@ -1,5 +1,6 @@
 export const ADD_LIST = 'ADD_LIST';
 export const RESERVE_PAGE = 'RESERVE_PAGE';
+export const TOGGLE_CHANGE_FLAG = 'TOGGLE_CHANGE_FLAG';
 
 
 export const addList = (data) => {
@@ -14,5 +15,11 @@ export const reservePage = (name, url) => {
         type: 'RESERVE_PAGE',
         name,
         url
+    }
+};
+export const toggleChangeFlag = (num) => {
+    return {
+        type: 'TOGGLE_CHANGE_FLAG',
+        num
     }
 };

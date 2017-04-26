@@ -5,20 +5,28 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Provider } from 'react-redux';
 
-import { reservePage } from '../action';
+import { reservePage, toggleChangeFlag } from '../action';
 
 class PageId extends React.Component {
     render() {
-        const datas = this.props.page.toJSON().datas;
-        const Lists = datas.map((page, key) => {
+        const pages = this.props.page.toJSON().datas;
+        const Lists = pages.map((page, key) => {
             return (
                 <ListItems page={page} id={key} key={key} reservePageFunc={this.props.reservePage}/>
+            )
+        });
+        const histories = this.props.pageHistory.toJSON().datas;
+        console.log(this.props.pageHistory.toJSON().currentNumber);
+        const MoveHistories = histories.map((page, key) => {
+            return (
+                <History pageHistory={page} num={key} key={key} toggleChangeFlagFunc={this.props.toggleChangeFlag} />
             )
         });
         return (
             <div>
                 <Link to="/sample">Sample</Link>
                 <div onClick={()=>hashHistory.goBack()}>Go BACK</div>
+                <div>{MoveHistories}</div>
                 <ul>{Lists}</ul>
             </div>
         )
@@ -49,6 +57,19 @@ class ListItems extends React.Component {
     }
 }
 
+class History extends React.Component {
+    handleClick (url, num) {
+        this.props.toggleChangeFlagFunc(num);
+        ipcRenderer.send("asynchronous-next-data", url);
+    }
+    render() {
+        const {pageHistory, num} = this.props;
+        return (
+            <div onClick={() => this.handleClick(pageHistory.url, num)}>{pageHistory.name}</div>
+        )
+    }
+}
+
 const mapStateToProps = (state) => {
     const { page, pageHistory } = state;
     return {
@@ -59,7 +80,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        reservePage: (name, url) => dispatch(reservePage(name, url))
+        reservePage: (name, url) => dispatch(reservePage(name, url)),
+        toggleChangeFlag: (url, num) =>  dispatch(toggleChangeFlag(url, num))
     };
 };
 
