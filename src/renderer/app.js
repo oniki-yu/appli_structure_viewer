@@ -6,13 +6,14 @@ import ReactDom from 'react-dom';
 import React, { Component, PropTypes } from 'react';
 import 'babel-polyfill';
 const { ipcRenderer } = require("electron");
-import { Router, Route, hashHistory, Link } from "react-router";
+import { Router, Route, hashHistory, Link, History } from "react-router";
 
 import { addList } from './action';
 import configureStore from './configureStore'
 import Page from './components/Page';
+import Example from './components/Example';
+import Sample from './components/Sample';
 import ContainerPageId from './components/PageId';
-import Login from './Login';
 
 const store = configureStore();
 
@@ -21,16 +22,17 @@ const appRouting = (
     <Router history={hashHistory}>
         <Route path="/">
             <Route path="pages" component={Page}>
-                <Route path=":pageId" component={ContainerPageId} />
+                <Route path=":pageId" component={ContainerPageId} history={hashHistory}/>
             </Route>
-            <Route path="login" component={Login} />
+            <Route path="sample" component={Sample} />
+            <Route path="example" component={Example} />
         </Route>
     </Router>
 );
 
 //Routingの初期化
 if (!location.hash.length) {
-    location.hash = "#/pages";
+    location.hash = "#/pages/1";
 }
 
 ReactDom.render((
