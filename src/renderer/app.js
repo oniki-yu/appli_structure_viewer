@@ -6,11 +6,10 @@ import ReactDom from 'react-dom';
 import React, { Component, PropTypes } from 'react';
 import 'babel-polyfill';
 const { ipcRenderer } = require("electron");
-import { Router, Route, hashHistory, Link, History } from "react-router";
 
 import { addList } from './action';
 import configureStore from './configureStore'
-import ContainerPage from './components/PageId';
+import ContainerPage from './components/Page';
 
 const store = configureStore();
 
