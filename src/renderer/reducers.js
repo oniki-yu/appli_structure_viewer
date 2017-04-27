@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 const I = require('immutable');
 
-import { ADD_LIST, RESERVE_PAGE_HISTORY, TOGGLE_CHANGE_FLAG } from './action';
+import { ADD_LIST, RESERVE_PAGE_HISTORY, TOGGLE_CHANGE_FLAG, RESERVE_APPLI } from './action';
 
 const page_data = {
     datas: [],
@@ -9,7 +9,7 @@ const page_data = {
 
 const page_url_name_object = {
     name: '',
-    url: ''
+    url: '',
 };
 
 const page_url_name = I.Record(page_url_name_object);
@@ -18,14 +18,24 @@ class PageUN extends page_url_name {}
 
 
 const page_data_history = {
+    appli: '',
     datas: [],
     changeFlag: false,
     currentNumber: 0
 };
 
+const appliObject = {
+    name: '',
+    appId: ''
+};
+
+const appliObjects = I.Record(appliObject);
+
+class Appli extends appliObjects {}
+
 const pageHistoryObject = {
     name: '',
-    url: ''
+    url: '',
 };
 
 const pageHistoryObjects = I.Record(pageHistoryObject);
@@ -56,6 +66,16 @@ const page = (state = I.fromJS(page_data), action) => {
 
 const pageHistory = (state = I.fromJS(page_data_history), action) => {
     switch (action.type) {
+        case RESERVE_APPLI:
+            const newAppli = new Appli ({
+                name: action.name,
+                appId: action.appId
+            });
+            return state.merge(I.fromJS({
+                appli: newAppli,
+                datas: [],
+                changeFlag: false
+            }));
         case RESERVE_PAGE_HISTORY:
             const newPage = new PageHistory({
                 name: action.name,

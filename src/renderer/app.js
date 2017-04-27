@@ -7,7 +7,7 @@ import React, { Component, PropTypes } from 'react';
 import 'babel-polyfill';
 const { ipcRenderer } = require("electron");
 
-import { addList } from './action';
+import { addList, reserveAppli } from './action';
 import configureStore from './configureStore'
 import ContainerPage from './components/Page';
 
@@ -34,6 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // formのsubmit時の動作を定義する
     document.getElementById("comment-form").onsubmit = () => {
         //mainに送る
+        console.log('reserveAppli');
+        store.dispatch(reserveAppli('Yappli', "2afae2dc"));
         ipcRenderer.send("asynchronous-message", "2afae2dc");
         return false;
     };

@@ -20,8 +20,10 @@ class Page extends React.Component {
                 <History pageHistory={page} num={key} key={key} toggleChangeFlag={this.props.toggleChangeFlag} />
             )
         });
+        const appliName = pageHistory.toJSON().appli.name;
         return (
             <div>
+                <div>{appliName}</div>
                 <div>{moveHistories}</div>
                 <ul>{apiDatas}</ul>
             </div>

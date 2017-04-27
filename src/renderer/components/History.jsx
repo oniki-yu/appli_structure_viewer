@@ -9,7 +9,9 @@ export default class History extends React.Component {
     render() {
         const {pageHistory, num} = this.props;
         return (
-            <div onClick={() => this.handleClick(pageHistory.url, num)}>{pageHistory.name}</div>
+            <div>
+                <div onClick={() => this.handleClick(pageHistory.url, num)}>{pageHistory.name}</div>
+            </div>
         )
     }
 }

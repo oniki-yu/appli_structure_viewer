@@ -1,7 +1,7 @@
 export const ADD_LIST = 'ADD_LIST';
 export const RESERVE_PAGE_HISTORY = 'RESERVE_PAGE_HISTORY';
 export const TOGGLE_CHANGE_FLAG = 'TOGGLE_CHANGE_FLAG';
-
+export const RESERVE_APPLI = 'RESERVE_APPLI';
 
 export const addList = (data) => {
     return {
@@ -17,9 +17,18 @@ export const reservePageHistory = (name, url) => {
         url
     }
 };
+
 export const toggleChangeFlag = (num) => {
     return {
         type: 'TOGGLE_CHANGE_FLAG',
         num
+    }
+};
+
+export const reserveAppli = (name, appId) => {
+    return {
+        type: 'RESERVE_APPLI',
+        name,
+        appId
     }
 };
