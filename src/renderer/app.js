@@ -6,6 +6,8 @@ import ReactDom from 'react-dom';
 import React, { Component, PropTypes } from 'react';
 import 'babel-polyfill';
 const { ipcRenderer } = require("electron");
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { addList, reserveAppli } from './action';
 import configureStore from './configureStore'
@@ -13,9 +15,13 @@ import ContainerPage from './components/Page';
 
 const store = configureStore();
 
+injectTapEventPlugin();
+
 ReactDom.render((
     <Provider store={store}>
-        <ContainerPage />
+        <MuiThemeProvider>
+            <ContainerPage />
+        </MuiThemeProvider>
     </Provider>
 ), document.getElementById('root'));
 
