@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 const I = require('immutable');
 
-import { ADD_LIST, RESERVE_PAGE, TOGGLE_CHANGE_FLAG } from './action';
+import { ADD_LIST, RESERVE_PAGE_HISTORY, TOGGLE_CHANGE_FLAG } from './action';
 
 const page_data = {
     datas: [],
@@ -56,7 +56,7 @@ const page = (state = I.fromJS(page_data), action) => {
 
 const pageHistory = (state = I.fromJS(page_data_history), action) => {
     switch (action.type) {
-        case RESERVE_PAGE:
+        case RESERVE_PAGE_HISTORY:
             const newPage = new PageHistory({
                 name: action.name,
                 url: action.url

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Provider } from 'react-redux';
 
-import { reservePage, toggleChangeFlag } from '../action';
+import { reservePageHistory, toggleChangeFlag } from '../action';
 import History from './History';
 import ApiDataItem from './ApiDataItem';
 
@@ -12,12 +12,12 @@ class Page extends React.Component {
         const {page, pageHistory} = this.props;
         const apiDatas = page.toJSON().datas.map((page, key) => {
             return (
-                <ApiDataItem page={page} id={key} key={key} reservePageFunc={this.props.reservePage}/>
+                <ApiDataItem page={page} id={key} key={key} reservePageHistory={this.props.reservePageHistory}/>
             )
         });
         const moveHistories = pageHistory.toJSON().datas.map((page, key) => {
             return (
-                <History pageHistory={page} num={key} key={key} toggleChangeFlagFunc={this.props.toggleChangeFlag} />
+                <History pageHistory={page} num={key} key={key} toggleChangeFlag={this.props.toggleChangeFlag} />
             )
         });
         return (
@@ -39,7 +39,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        reservePage: (name, url) => dispatch(reservePage(name, url)),
+        reservePageHistory: (name, url) => dispatch(reservePageHistory(name, url)),
         toggleChangeFlag: (url, num) =>  dispatch(toggleChangeFlag(url, num))
     };
 };

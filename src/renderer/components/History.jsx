@@ -3,7 +3,7 @@ const { ipcRenderer } = require("electron");
 
 export default class History extends React.Component {
     handleClick (url, num) {
-        this.props.toggleChangeFlagFunc(num);
+        this.props.toggleChangeFlag(num);
         ipcRenderer.send("asynchronous-next-data", url);
     }
     render() {

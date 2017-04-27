@@ -6,7 +6,7 @@ export default class ApiDataItem extends React.Component {
         super(props);
     }
     handleClick (name, url) {
-        this.props.reservePageFunc(name, url);
+        this.props.reservePageHistory(name, url);
         ipcRenderer.send("asynchronous-next-data", url);
     }
     render() {

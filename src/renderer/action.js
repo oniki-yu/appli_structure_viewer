@@ -1,5 +1,5 @@
 export const ADD_LIST = 'ADD_LIST';
-export const RESERVE_PAGE = 'RESERVE_PAGE';
+export const RESERVE_PAGE_HISTORY = 'RESERVE_PAGE_HISTORY';
 export const TOGGLE_CHANGE_FLAG = 'TOGGLE_CHANGE_FLAG';
 
 
@@ -10,9 +10,9 @@ export const addList = (data) => {
     }
 };
 
-export const reservePage = (name, url) => {
+export const reservePageHistory = (name, url) => {
     return {
-        type: 'RESERVE_PAGE',
+        type: 'RESERVE_PAGE_HISTORY',
         name,
         url
     }
