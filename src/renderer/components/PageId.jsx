@@ -7,17 +7,16 @@ import { Provider } from 'react-redux';
 
 import { reservePage, toggleChangeFlag } from '../action';
 
-class PageId extends React.Component {
+class Page extends React.Component {
     render() {
         const pages = this.props.page.toJSON().datas;
-        const Lists = pages.map((page, key) => {
+        const apiDatas = pages.map((page, key) => {
             return (
-                <ListItems page={page} id={key} key={key} reservePageFunc={this.props.reservePage}/>
+                <ApiDataItem page={page} id={key} key={key} reservePageFunc={this.props.reservePage}/>
             )
         });
         const histories = this.props.pageHistory.toJSON().datas;
-        console.log(this.props.pageHistory.toJSON().currentNumber);
-        const MoveHistories = histories.map((page, key) => {
+        const moveHistories = histories.map((page, key) => {
             return (
                 <History pageHistory={page} num={key} key={key} toggleChangeFlagFunc={this.props.toggleChangeFlag} />
             )
@@ -26,14 +25,14 @@ class PageId extends React.Component {
             <div>
                 <Link to="/sample">Sample</Link>
                 <div onClick={()=>hashHistory.goBack()}>Go BACK</div>
-                <div>{MoveHistories}</div>
-                <ul>{Lists}</ul>
+                <div>{moveHistories}</div>
+                <ul>{apiDatas}</ul>
             </div>
         )
     }
 }
 
-class ListItems extends React.Component {
+class ApiDataItem extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -43,12 +42,6 @@ class ListItems extends React.Component {
     }
     render() {
         const {page} = this.props;
-        const crypto = require('crypto');
-        const shasum = crypto.createHash('sha1');
-        const sha1 = url => {
-            shasum.update(url);
-            return shasum.digest('hex');
-        };
         return (
             <p>
                 <div onClick={() => this.handleClick(page.name, page.url)}>{page.name}</div>
@@ -85,9 +78,9 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const ContainerPageId = connect(
+const ContainerPage = connect(
     mapStateToProps,
     mapDispatchToProps
-)(PageId);
+)(Page);
 
-export default ContainerPageId;
+export default ContainerPage;

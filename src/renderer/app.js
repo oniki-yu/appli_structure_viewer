@@ -10,34 +10,13 @@ import { Router, Route, hashHistory, Link, History } from "react-router";
 
 import { addList } from './action';
 import configureStore from './configureStore'
-import Page from './components/Page';
-import Example from './components/Example';
-import Sample from './components/Sample';
-import ContainerPageId from './components/PageId';
+import ContainerPage from './components/PageId';
 
 const store = configureStore();
 
-//Routingの定義
-const appRouting = (
-    <Router history={hashHistory}>
-        <Route path="/">
-            <Route path="pages" component={Page}>
-                <Route path=":pageId" component={ContainerPageId} history={hashHistory}/>
-            </Route>
-            <Route path="sample" component={Sample} />
-            <Route path="example" component={Example} />
-        </Route>
-    </Router>
-);
-
-//Routingの初期化
-if (!location.hash.length) {
-    location.hash = "#/pages/1";
-}
-
 ReactDom.render((
     <Provider store={store}>
-        {appRouting}
+        <ContainerPage />
     </Provider>
 ), document.getElementById('root'));
 
@@ -51,23 +30,12 @@ ipcRenderer.on("asynchronous-reply", (event, message) => {
     store.dispatch(addList(message));
 });
 
-const mapStateToProps = (state) => {
-    const { page } = state;
-    return {
-        page: page
+//送った時
+document.addEventListener("DOMContentLoaded", () => {
+    // formのsubmit時の動作を定義する
+    document.getElementById("comment-form").onsubmit = () => {
+        //mainに送る
+        ipcRenderer.send("asynchronous-message", "2afae2dc");
+        return false;
     };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addList: e => dispatch(addList(e))
-    };
-};
-
-const ContainerBox = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Page);
-
-export default ContainerBox;
-
+});
