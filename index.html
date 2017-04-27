@@ -6,13 +6,9 @@
         <link rel="stylesheet" href="node_modules/photon/dist/css/photon.css">
     </head>
     <body>
-        <h1>CommentBox</h1>
-        <form id="comment-form">
-            <input type="text" id="comment-input" placeholder="コメント" />
-            <input type="submit" value="投稿" />
-        </form>
-        <div id="root"></div>
-        <ul id="comments"></ul>
-        <script>(require("./.tmp/renderer/app.js"))</script>
+    <div class="window">
+        <div id="root" class="window-content"></div>
+    </div>
+    <script>(require("./.tmp/renderer/app.js"))</script>
     </body>
 </html>

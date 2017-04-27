@@ -22,10 +22,18 @@ class Page extends React.Component {
         });
         const appliName = pageHistory.toJSON().appli.name;
         return (
-            <div>
-                <div>{appliName}</div>
-                <div>{moveHistories}</div>
-                <ul>{apiDatas}</ul>
+            <div className="pane-group">
+                <div className="pane-sm sidebar">
+                    <form id="comment-form">
+                        <input type="text" id="comment-input" placeholder="コメント" />
+                        <input type="submit" value="投稿" />
+                    </form>
+                </div>
+                <div className="pane">
+                    <h1>{appliName}</h1>
+                    <div>{moveHistories}</div>
+                    <ul>{apiDatas}</ul>
+                </div>
             </div>
         )
     }

@@ -18,7 +18,7 @@
     "es6-promise": "^4.1.0",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
-    "photon": "connors/photon",
+    "photon": "https://github.com/connors/photon",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
