@@ -9,7 +9,7 @@ const { ipcRenderer } = require("electron");
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import { backHistory, reserveAppli, addJson, reservePageHistory } from './action';
+import { backHistory, reserveAppli, reservePageHistory } from './action';
 import configureStore from './configureStore'
 import ContainerAppli from './components/Appli';
 

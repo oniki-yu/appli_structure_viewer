@@ -6,7 +6,20 @@ import {List, ListItem} from 'material-ui/List';
 export class LinkData extends React.Component {
     render() {
         const { data, idx, appli, pageTitle } = this.props;
-        const _href = data._href ? data._href : "no _href";
+        const _href = data._href ? (data._href.match(/api\/tab/)
+                    ? <ListItem
+                        key={1}
+                        primaryText={ "_href:  " + data._href }
+                        onClick={() => (ipcRenderer.send("asynchronous-next-data", data._href, appId, pageTitle))}
+                    />
+                    : <ListItem
+                        key={1}
+                        primaryText={ "_href:  " + data._href }
+                    />)
+                : <ListItem
+                    key={1}
+                    primaryText="no _href"
+                />;
         const _type = data._type ? data._type : "no _type";
         const appId = appli.toJSON().info.appId;
         return (
@@ -15,11 +28,7 @@ export class LinkData extends React.Component {
                 primaryText="Links"
                 primaryTogglesNestedList={true}
                 nestedItems={[
-                    <ListItem
-                        key={1}
-                        primaryText={ "_href:  " + _href }
-                        onClick={() => (ipcRenderer.send("asynchronous-next-data", _href, appId, pageTitle))}
-                    />,
+                    _href,
                     <ListItem
                         key={2}
                         primaryText={ "_type:  " + _type }

@@ -42,7 +42,7 @@ const appli = (state = I.fromJS(appliInfo), action) => {
             });
             return state.merge(I.fromJS({
                 info: newAppli,
-                datas: [],
+                histories: [],
                 changeFlag: false,
                 apiData: action.data
             }));
