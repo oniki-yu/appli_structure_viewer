@@ -5,8 +5,9 @@ import axios from 'axios';
 
 import createWindow from './createWindow';
 
-function reply (event, url, data) {
-    event.sender.send("asynchronous-reply", url, data)
+function reply (event, url, data, pageTitle) {
+    event.sender.send("asynchronous-reply", url, data, pageTitle)
+
 }
 
 function replyAppli (event, appId, data) {
@@ -21,10 +22,10 @@ ipcMain.on("asynchronous-message", (event, appId) => {
 });
 
 //２回目以降
-ipcMain.on("asynchronous-next-data", (event, url) => {
+ipcMain.on("asynchronous-next-data", (event, url, appId, pageTitle) => {
     axios.get(url, {
-        headers: {"User-Agent": "Yappli/2afae2dc.20170418 (iPhone)"}
-    }).then(response => reply(event, url, response.data.feed.entry));
+        headers: {"User-Agent": "Yappli/"+ appId +".20170418 (iPhone)"}
+    }).then(response => reply(event, url, response.data.feed, pageTitle));
 });
 
 app.on('ready', () => {

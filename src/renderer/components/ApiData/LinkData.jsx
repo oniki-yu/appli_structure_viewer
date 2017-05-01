@@ -1,11 +1,14 @@
 import React from "react";
+const { ipcRenderer } = require("electron");
+import { connect } from 'react-redux';
 import {List, ListItem} from 'material-ui/List';
 
-export default class LinkData extends React.Component {
+export class LinkData extends React.Component {
     render() {
-        const { data, idx } = this.props;
+        const { data, idx, appli, pageTitle } = this.props;
         const _href = data._href ? data._href : "no _href";
         const _type = data._type ? data._type : "no _type";
+        const appId = appli.toJSON().info.appId;
         return (
             <ListItem
                 key={ idx + 1 }
@@ -15,6 +18,7 @@ export default class LinkData extends React.Component {
                     <ListItem
                         key={1}
                         primaryText={ "_href:  " + _href }
+                        onClick={() => (ipcRenderer.send("asynchronous-next-data", _href, appId, pageTitle))}
                     />,
                     <ListItem
                         key={2}
@@ -26,7 +30,15 @@ export default class LinkData extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    const { appli } = state;
+    return {
+        appli: appli
+    };
+};
 
+const ContainerLinkData = connect(
+    mapStateToProps,
+)(LinkData);
 
-
-
+export default ContainerLinkData;

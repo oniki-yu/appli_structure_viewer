@@ -18,11 +18,12 @@ export const addJson = (json) => {
     }
 };
 
-export const reservePageHistory = (name, url) => {
+export const reservePageHistory = (url, data, pageTitle) => {
     return {
         type: 'RESERVE_PAGE_HISTORY',
-        name,
-        url
+        url,
+        data,
+        pageTitle
     }
 };
 

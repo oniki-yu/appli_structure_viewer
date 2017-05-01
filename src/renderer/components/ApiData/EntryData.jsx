@@ -8,12 +8,12 @@ import Content from './Content';
 export default class EntryData extends React.Component {
     render() {
         const { data, idx } = this.props;
+        const title = data.title ? data.title : "no title";
         const category = data.category ? <Category data={ data.category } idx={1} /> : 'no category';
         const content = data.content ? <Content data={ data.content }  idx={2} /> : 'no content';
         const id = data.id ? data.id : "no id";
-        const link = data.link ? <Link data={ data.link }  idx={4} /> : 'no link';
+        const link = data.link ? <Link data={ data.link } pageTitle={ title }  idx={4} /> : 'no link';
         const summary = data.summary ? data.summary : "no summary";
-        const title = data.title ? data.title : "no title";
         const updated = data.updated ? data.updated : "no updated";
         return (
         <ListItem

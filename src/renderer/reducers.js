@@ -47,14 +47,14 @@ const appliObjects = I.Record(appliObject);
 
 class Appli extends appliObjects {}
 
-const pageHistoryObject = {
-    name: '',
+const ApiHistoryObject = {
     url: '',
+    pageTitle: '',
 };
 
-const pageHistoryObjects = I.Record(pageHistoryObject);
+const ApiHistoryObjects = I.Record(ApiHistoryObject);
 
-class PageHistory extends pageHistoryObjects {}
+class ApiHistory extends ApiHistoryObjects {}
 
 
 function append_list (arr, child) {
@@ -88,19 +88,20 @@ const appli = (state = I.fromJS(appliInfo), action) => {
                 changeFlag: false,
                 apiData: action.data
             }));
-
-
-
         case RESERVE_PAGE_HISTORY:
-            const newPage = new PageHistory({
-                name: action.name,
-                url: action.url
+            const newApiHistory = new ApiHistory({
+                url: action.url,
+                pageTitle: action.pageTitle
             });
-            const datas = !state.get('changeFlag') ? state.get('datas') : state.get('datas').take(state.get('currentNumber')+1);
+            const histories = !state.get('changeFlag') ? state.get('histories') : state.get('histories').take(state.get('currentNumber')+1);
             return state.merge(I.fromJS({
-                datas: datas.push(newPage),
-                changeFlag: false
+                histories: histories.push(newApiHistory),
+                changeFlag: false,
+                apiData: action.data
             }));
+
+
+
         case TOGGLE_CHANGE_FLAG:
             return state.merge(I.fromJS({
                 datas: state.get('datas'),
