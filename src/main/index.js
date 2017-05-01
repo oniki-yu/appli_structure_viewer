@@ -7,11 +7,14 @@ import createWindow from './createWindow';
 
 function reply (event, url, data, pageTitle) {
     event.sender.send("asynchronous-reply", url, data, pageTitle)
-
 }
 
 function replyAppli (event, appId, data) {
     event.sender.send("asynchronous-reply-appli", appId, data)
+}
+
+function replyHistory (event, url, data) {
+    event.sender.send("replyHistory", url, data)
 }
 
 //rendererからデータを受け取る
@@ -26,6 +29,13 @@ ipcMain.on("asynchronous-next-data", (event, url, appId, pageTitle) => {
     axios.get(url, {
         headers: {"User-Agent": "Yappli/"+ appId +".20170418 (iPhone)"}
     }).then(response => reply(event, url, response.data.feed, pageTitle));
+});
+
+//遷移履歴クリック時
+ipcMain.on("requestHistory", (event, url, appId) => {
+    axios.get(url, {
+        headers: {"User-Agent": "Yappli/"+ appId +".20170418 (iPhone)"}
+    }).then(response => replyHistory(event, url, response.data.feed));
 });
 
 app.on('ready', () => {

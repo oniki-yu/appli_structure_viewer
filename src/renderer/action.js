@@ -1,20 +1,14 @@
-export const ADD_LIST = 'ADD_LIST';
+export const RESERVE_APPLI = 'RESERVE_APPLI';
 export const RESERVE_PAGE_HISTORY = 'RESERVE_PAGE_HISTORY';
 export const TOGGLE_CHANGE_FLAG = 'TOGGLE_CHANGE_FLAG';
-export const RESERVE_APPLI = 'RESERVE_APPLI';
-export const ADD_JSON = 'ADD_JSON';
+export const BACK_HISTORY = 'BACK_HISTORY';
 
-export const addList = (data) => {
+export const reserveAppli = (name, appId, data) => {
     return {
-        type: 'ADD_LIST',
+        type: 'RESERVE_APPLI',
+        name,
+        appId,
         data
-    }
-};
-
-export const addJson = (json) => {
-    return {
-        type: 'ADD_JSON',
-        json
     }
 };
 
@@ -34,11 +28,11 @@ export const toggleChangeFlag = (num) => {
     }
 };
 
-export const reserveAppli = (name, appId, data) => {
+export const backHistory = (url, data) => {
     return {
-        type: 'RESERVE_APPLI',
-        name,
-        appId,
+        type: 'BACK_HISTORY',
+        url,
         data
     }
 };
+

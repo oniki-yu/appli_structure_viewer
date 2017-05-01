@@ -9,15 +9,15 @@ import {
 
 
 export default class History extends React.Component {
-    handleClick (url, num) {
+    handleClick (url, appId, num) {
+        ipcRenderer.send("requestHistory", url, appId);
         this.props.toggleChangeFlag(num);
-        ipcRenderer.send("asynchronous-next-data", url);
     }
     render() {
-        const {pageHistory, num} = this.props;
+        const {history, appId, num} = this.props;
         return (
             <Step>
-                <StepButton onClick={() => this.handleClick(pageHistory.url, num)}>{pageHistory.name}</StepButton>
+                <StepButton onClick={() => this.handleClick(history.url, appId, num)}>{history.pageTitle}</StepButton>
             </Step>
         )
     }

@@ -9,7 +9,7 @@ const { ipcRenderer } = require("electron");
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import { addList, reserveAppli, addJson, reservePageHistory } from './action';
+import { backHistory, reserveAppli, addJson, reservePageHistory } from './action';
 import configureStore from './configureStore'
 import ContainerAppli from './components/Appli';
 
@@ -32,19 +32,17 @@ ipcRenderer.on("ping", (event, message) => {
 
 //mainに送ったあと返ってきたもの
 ipcRenderer.on("asynchronous-reply", (event, url, data, pageTitle) => {
-    console.log(data);
-    console.log(pageTitle);
-    console.log("receive");
     store.dispatch(reservePageHistory(url, data, pageTitle));
-    return;
-
-    store.dispatch(addJson(data));
-    store.dispatch(addList(data));
 });
 
 //最初にmainに送ったあと返ってきたもの
 ipcRenderer.on("asynchronous-reply-appli", (event, appId, data) => {
     store.dispatch(reserveAppli('Yappli', appId, data));
+});
+
+//遷移履歴クリックのreply
+ipcRenderer.on("replyHistory", (event, url, data) => {
+    store.dispatch(backHistory(url, data));
 });
 
 //最初に送った時
