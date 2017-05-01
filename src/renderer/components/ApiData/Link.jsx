@@ -1,15 +1,26 @@
 import React from "react";
+import {List, ListItem} from 'material-ui/List';
 
-export default class Link extends React.Component {
+import LinkData from './LinkData';
+
+export default class Entry extends React.Component {
     render() {
         const { data } = this.props;
-        const _href = data._href ? data._href : "no _href";
-        const _type = data._type ? data._type : "no _type";
+        const linkIdx = this.props.idx ? this.props.idx : 1;
+        const links = data.map((data, key) => {
+            return (
+                <LinkData data={data} idx={key} key={key}  />
+            )
+        });
         return (
-            <div>
-                <p>_href: { _href }</p>
-                <p>_type: { _type }</p>
-            </div>
+            <ListItem
+                key={ linkIdx }
+                primaryText="Link"
+                primaryTogglesNestedList={true}
+                nestedItems={
+                    links
+                }
+            />
         )
     }
 }
