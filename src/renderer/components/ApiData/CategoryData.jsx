@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class CategoryDate extends React.Component {
+export default class CategoryData extends React.Component {
     render() {
         const { data } = this.props;
         const _schema = data._schema ? data._schema : "no _schema";

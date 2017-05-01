@@ -1,26 +1,26 @@
 import React from "react";
 
+import Link from './Link';
 import Category from './Category';
-import Contributor from './Contributor';
-import Entry from './Entry';
+import Content from './Content';
 
-export default class Feed extends React.Component {
+export default class EntryData extends React.Component {
     render() {
         const { data } = this.props;
         const category = data.category ? <Category data={ data.category } /> : 'no category';
-        const contributor = data.contributor ? <Contributor data={ data.contributor } /> : 'no contributor';
-        const entry = data.entry ? <Entry data={ data.entry } /> : 'no entry';
+        const content = data.content ? <Content data={ data.content } /> : 'no content';
         const id = data.id ? data.id : "no id";
-        const subtitle = data.subtitle ? data.subtitle : "no subtitle";
+        const link = data.link ? <Link data={ data.link } /> : 'no link';
+        const summary = data.summary ? data.summary : "no summary";
         const title = data.title ? data.title : "no title";
         const updated = data.updated ? data.updated : "no updated";
         return (
             <div>
-                { category }
-                { contributor }
-                { entry }
+                <p>category: { category }</p>
+                <p>content: { content }</p>
                 <p>id: { id }</p>
-                <p>subtitle: { subtitle }</p>
+                <p>link: { link }</p>
+                <p>summary: { summary }</p>
                 <p>title: { title }</p>
                 <p>updated: { updated }</p>
             </div>
