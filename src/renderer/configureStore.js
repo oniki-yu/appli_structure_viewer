@@ -8,7 +8,7 @@ import * as I from 'immutable';
 const loggerMiddleware = createLogger({
         stateTransformer: state => {
             return state && I.fromJS(state).map(s => {
-                    if (s === 'page') return s.toJS();
+                    if (s === 'appli') return s.toJS();
                     return s;
                 }).toJS();
         },

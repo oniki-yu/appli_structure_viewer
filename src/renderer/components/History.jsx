@@ -1,5 +1,12 @@
 import React from "react";
 const { ipcRenderer } = require("electron");
+import {
+    Step,
+    Stepper,
+    StepLabel,
+    StepButton,
+} from 'material-ui/Stepper';
+
 
 export default class History extends React.Component {
     handleClick (url, num) {
@@ -9,9 +16,9 @@ export default class History extends React.Component {
     render() {
         const {pageHistory, num} = this.props;
         return (
-            <div>
-                <div onClick={() => this.handleClick(pageHistory.url, num)}>{pageHistory.name}</div>
-            </div>
+            <Step>
+                <StepButton onClick={() => this.handleClick(pageHistory.url, num)}>{pageHistory.name}</StepButton>
+            </Step>
         )
     }
 }

@@ -1,6 +1,5 @@
 import React from "react";
 const { ipcRenderer } = require("electron");
-import {RaisedButton} from 'material-ui';
 
 export default class ApiDataItem extends React.Component {
     constructor(props) {
@@ -12,10 +11,16 @@ export default class ApiDataItem extends React.Component {
     }
     render() {
         const {page} = this.props;
+        let data = '';
+        if (typeof page === 'object') {
+            data = <div>object</div>;
+        } else {
+            data = <div>text</div>;
+        }
         return (
             <p>
-                <RaisedButton label="Default" />
-                <div onClick={() => this.handleClick(page.name, page.url)}>{page.name}</div>
+                {data}
+                {/*<div onClick={() => this.handleClick(page.name, page.url)}>{page.name}</div>*/}
             </p>
         )
     }

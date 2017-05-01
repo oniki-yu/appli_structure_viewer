@@ -1,10 +1,24 @@
 import { combineReducers } from 'redux';
 const I = require('immutable');
 
-import { ADD_LIST, RESERVE_PAGE_HISTORY, TOGGLE_CHANGE_FLAG, RESERVE_APPLI } from './action';
+import { ADD_LIST, RESERVE_PAGE_HISTORY, TOGGLE_CHANGE_FLAG, RESERVE_APPLI, ADD_JSON } from './action';
+
+
+const appliInfo = {
+    info: '',
+    histories: [],
+    changeFlag: false,
+    currentNumber: 0,
+    apiData: ''
+};
+
+
+
+
+
 
 const page_data = {
-    datas: [],
+    datas: {},
 };
 
 const page_url_name_object = {
@@ -51,7 +65,9 @@ function append_list (arr, child) {
     arr.push(newPage);
 };
 
-const page = (state = I.fromJS(page_data), action) => {
+
+
+const appli = (state = I.fromJS(appliInfo), action) => {
     switch (action.type) {
         case ADD_LIST:
             let arr = [];
@@ -59,23 +75,22 @@ const page = (state = I.fromJS(page_data), action) => {
             return I.fromJS({
                 datas: I.List(arr),
             });
-        default:
-            return state;
-    }
-};
 
-const pageHistory = (state = I.fromJS(page_data_history), action) => {
-    switch (action.type) {
+
         case RESERVE_APPLI:
             const newAppli = new Appli ({
                 name: action.name,
                 appId: action.appId
             });
             return state.merge(I.fromJS({
-                appli: newAppli,
+                info: newAppli,
                 datas: [],
-                changeFlag: false
+                changeFlag: false,
+                apiData: action.data
             }));
+
+
+
         case RESERVE_PAGE_HISTORY:
             const newPage = new PageHistory({
                 name: action.name,
@@ -92,14 +107,67 @@ const pageHistory = (state = I.fromJS(page_data_history), action) => {
                 changeFlag: true,
                 currentNumber: action.num
             }));
+
         default:
             return state;
     }
 };
 
+
+// const page = (state = I.fromJS(page_data), action) => {
+//     switch (action.type) {
+//         case ADD_LIST:
+//             let arr = [];
+//             action.data.map(child => append_list(arr, child));
+//             return I.fromJS({
+//                 datas: I.List(arr),
+//             });
+//         case ADD_JSON:
+//             return I.fromJS({
+//                 datas: action.json,
+//             });
+//         default:
+//             return state;
+//     }
+// };
+//
+// const pageHistory = (state = I.fromJS(page_data_history), action) => {
+//     switch (action.type) {
+//         case RESERVE_APPLI:
+//             const newAppli = new Appli ({
+//                 name: action.name,
+//                 appId: action.appId
+//             });
+//             return state.merge(I.fromJS({
+//                 appli: newAppli,
+//                 datas: [],
+//                 changeFlag: false
+//             }));
+//         case RESERVE_PAGE_HISTORY:
+//             const newPage = new PageHistory({
+//                 name: action.name,
+//                 url: action.url
+//             });
+//             const datas = !state.get('changeFlag') ? state.get('datas') : state.get('datas').take(state.get('currentNumber')+1);
+//             return state.merge(I.fromJS({
+//                 datas: datas.push(newPage),
+//                 changeFlag: false
+//             }));
+//         case TOGGLE_CHANGE_FLAG:
+//             return state.merge(I.fromJS({
+//                 datas: state.get('datas'),
+//                 changeFlag: true,
+//                 currentNumber: action.num
+//             }));
+//         default:
+//             return state;
+//     }
+// };
+
 const reducer = combineReducers({
-    page, //1つ1つのreducerを書く。増えたらここに追加する。
-    pageHistory
+    appli
+    // page, //1つ1つのreducerを書く。増えたらここに追加する。
+    // pageHistory
 });
 
 export default reducer
